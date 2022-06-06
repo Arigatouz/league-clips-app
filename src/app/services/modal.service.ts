@@ -12,15 +12,21 @@ interface IModal {
   providedIn: 'root',
 })
 export class ModalService {
-  private Modal: IModal[] = [];
+  public Modal: IModal[] = [];
 
   constructor() {}
 
+  // register Modal to track which modal is opened
   register(ID: string) {
     this.Modal.push({
       ID,
       visible: false,
     });
+  }
+
+  // unregister the modal for the memory LEEK
+  unregister(ID: string) {
+    this.Modal = this.Modal.filter((element) => element.ID !== ID);
   }
 
   isModalOpen(ID: string): boolean {
