@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TabsComponent implements OnInit {
   @Input() tabTitle: string = '';
+  @Input() active: boolean = false;
 
   constructor() {}
 

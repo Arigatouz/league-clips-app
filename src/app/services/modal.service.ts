@@ -38,6 +38,5 @@ export class ModalService {
     if (openedModal) {
       openedModal.visible = !openedModal.visible;
     }
-    // this.visible = !this.visible;
   }
 }

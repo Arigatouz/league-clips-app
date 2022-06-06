@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthModalComponent } from './auth-modal/auth-modal.component';
 import { SharedModule } from '../shared/shared.module';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 
 @NgModule({
-  declarations: [AuthModalComponent],
+  declarations: [AuthModalComponent, LoginFormComponent, RegisterFormComponent],
   imports: [CommonModule, SharedModule],
   exports: [AuthModalComponent],
 })
