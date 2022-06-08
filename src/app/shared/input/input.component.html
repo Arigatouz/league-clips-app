@@ -1,0 +1,53 @@
+<input type="text" [formControl]="control" [type]="type" [placeholder]="placeholder" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
+                    duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+  placeholder="Enter Name" />
+<!-- with custom message to the user -->
+<!-- ng-container it doesn't get rendered on the page and it allows you to contain some elements
+  we add the control.touched and control.dirty on it validate if user touch the field and change the data in the field
+-->
+<ng-container *ngIf="control.touched  && control.dirty">
+  <!-- password validation -->
+  <p class="text-red-400" *ngIf="control.errors?.pattern">
+    <span class="block">- at least 8 characters</span>
+    <span class="block">- must contain at least 1 uppercase letter <br />-1 lowercase letter, and 1 number</span>
+
+    <span class="block">- Can contain special characters</span>
+  </p>
+
+  <!-- required validation -->
+  <p class="text-red-400 pt-2" *ngIf="control.errors?.required">
+    This field is required</p>
+
+  <!-- word length validation -->
+  <p class="text-red-400 pt-2" *ngIf="control.errors?.minlength">
+    The value you entered is
+    {{control.errors?.minlength.actualLength }}
+    {{control.errors?.minlength.actualLength === 1 ? "Character" : 'Characters'}} , It must be at
+    least
+    {{control.errors?.minlength.requiredLength}} characters</p>
+
+  <!-- email validation -->
+  <p class="text-red-400 pt-2" *ngIf="control.errors?.email">Enter a valid email</p>
+
+  <!-- age validation -->
+  <p class="text-red-400 pt-2" *ngIf="control.errors?.min ">your age is
+    {{control.errors?.min.actual}} , you must be
+    older than {{control.errors?.min.min}} </p>
+  <p class="text-red-400 pt-2" *ngIf="control.errors?.max">your age is {{control.errors?.max.actual}} , you must be
+    younger than {{control.errors?.max.max}}</p>
+
+</ng-container>
+
+
+
+
+<!-- with out custom message to the user-->
+<!-- <p>{{registerForm.controls.name?.errors | json}}</p> -->
+<!-- also can be  -->
+<!-- <p>{{registerForm.controls['name']?.errors | json}}</p> -->
+<!-- but this will require us to enable the
+     "noPropertyAccessFromIndexSignature": true,
+     it's mainly will be true so we disable it so we can use the dot notation chaining
+    -->
+<!-- the error can be achieved  also by the get() function like so -->
+<!-- <p>{{registerForm.controls.get('name')?.errors}}</p> -->
