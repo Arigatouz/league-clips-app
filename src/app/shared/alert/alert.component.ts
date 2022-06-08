@@ -13,7 +13,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {}
   // the get keyword here is to treat the function as a getter function
 
-  get bgColor() {
+  get bgColor(): string {
     return `bg-${this.color}-400`;
   }
 }
