@@ -32,10 +32,12 @@ and remember we add the ReactiveFormsModule in the user module
   <!-- Phone Number -->
   <div class="mb-3">
     <label class="inline-block mb-2">Phone Number</label>
-    <app-input [control]="phone" placeholder="Enter your Phone"></app-input>
+    <app-input [control]="phone" placeholder="Enter your Phone" format="(000)-0000-0000"></app-input>
   </div>
-  <button type="submit" class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition
-                  hover:bg-indigo-500">
+  <button type="submit"
+    class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition
+                  hover:bg-indigo-500 cursor-pointer disabled:bg-gray-600 disabled:text-indigo-400 disabled:cursor-not-allowed"
+    [disabled]="registerForm.invalid">
     Submit
   </button>
 </form>

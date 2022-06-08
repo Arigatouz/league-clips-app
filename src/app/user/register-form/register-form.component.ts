@@ -20,7 +20,11 @@ export class RegisterFormComponent {
     Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm),
   ]);
   confirm_password = new FormControl('', [Validators.required]);
-  phone = new FormControl('');
+  phone = new FormControl('', [
+    Validators.required,
+    Validators.minLength(15),
+    Validators.maxLength(15),
+  ]);
   // second we instantiate  new instance of the FormGroup
   registerForm = new FormGroup({
     // then we (key value pair) the properties with the this keyword
