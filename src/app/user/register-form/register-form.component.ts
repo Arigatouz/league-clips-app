@@ -35,7 +35,7 @@ export class RegisterFormComponent {
     confirm_password: this.confirm_password,
     phone: this.phone,
   });
-  showAlert: boolean = true;
+  showAlert: boolean = false;
   alertMessage: string = 'Please Wait!, while your account is being created';
   alertColor: string = 'blue';
 

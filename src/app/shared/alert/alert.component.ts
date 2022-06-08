@@ -1,25 +1,18 @@
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
 })
-export class AlertComponent implements OnInit, AfterContentChecked {
-  @Input() color: string = 'blue';
+export class AlertComponent implements OnInit {
+  @Input() color: string = '';
 
-  constructor() {
-    console.log('constructor', this.bgColor);
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log('onInit', this.bgColor);
-  }
+  ngOnInit(): void {}
   // the get keyword here is to treat the function as a getter function
 
-  ngAfterContentChecked(): void {
-    console.log(this.bgColor);
-  }
   get bgColor() {
     return `bg-${this.color}-400`;
   }
