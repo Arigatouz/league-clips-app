@@ -35,6 +35,10 @@ export class RegisterFormComponent {
     confirm_password: this.confirm_password,
     phone: this.phone,
   });
+  showAlert: boolean = true;
+  alertMessage: string = 'Please Wait!, while your account is being created';
+  alertColor: string = 'blue';
+
   constructor() {
     /*
      * if you uncomment this up coming line and get the mouse on the name property
@@ -49,4 +53,10 @@ export class RegisterFormComponent {
     this.name;
     //
   }
+  register = (): void => {
+    this.showAlert = true;
+    this.alertMessage = 'Please Wait!, while your account is being created';
+    this.alertColor = 'blue';
+    console.log('register function called()');
+  };
 }

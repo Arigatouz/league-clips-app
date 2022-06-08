@@ -1,9 +1,13 @@
+<!-- alert to let the user know if their request / in process / is done / error occurs   -->
+<app-alert [color]="alertColor" *ngIf="showAlert">
+  {{alertMessage}}
+</app-alert>
 <!-- first to make form validation we need to connect the form with the
 binding of [formGroup] = registerForm
 then we will add formControlName to each input equal to it's representative name in the form control
 and remember we add the ReactiveFormsModule in the user module
 -->
-<form formTab [formGroup]="registerForm">
+<form formTab [formGroup]="registerForm" (ngSubmit)="register()">
   <!-- Name -->
   <div class="mb-3">
     <label class="inline-block mb-2">Name</label>
