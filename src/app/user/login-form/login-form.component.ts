@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
@@ -7,5 +6,14 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  registerForm = new FormGroup({});
+  credentials: { email: string; password: string } = {
+    email: '',
+    password: '',
+  };
+  // is_on_submission: boolean = true;
+
+  login = (): void => {
+    console.log('logIn function triggered');
+    console.log(this.credentials);
+  };
 }

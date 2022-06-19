@@ -1,20 +1,58 @@
-<form formTab>
+<form formTab #loginForm="ngForm" (ngSubmit)="login()">
   <!-- Email -->
   <div class="mb-3">
     <label class="inline-block mb-2">Email</label>
-    <input type="email" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                        duration-500 focus:outline-none rounded bg-transparent
-                        focus:border-indigo-400" placeholder="Enter Email" />
+    <input
+      #email="ngModel"
+      [(ngModel)]="credentials.email"
+      name="email"
+      type="email"
+      class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+      placeholder="Enter Email"
+      required
+      pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    />
+    <p *ngIf="email.errors" class="text-red-400 pt-2">
+      <span *ngIf="email.errors?.required && email.touched && email.dirty">
+        Email is required to Login
+      </span>
+      <span *ngIf="email.errors?.pattern && email.touched && email.dirty">
+        Enter a Valid Email
+      </span>
+    </p>
   </div>
+
   <!-- Password -->
   <div class="mb-3">
     <label class="inline-block mb-2">Password</label>
-    <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                      duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-      placeholder="Password" />
+    <input
+      #password="ngModel"
+      [(ngModel)]="credentials.password"
+      name="password"
+      type="password"
+      class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
+      placeholder="Password"
+      required
+      minlength="8"
+    />
+    <p class="text-red-400 pt-2" *ngIf="password.errors">
+      <span
+        *ngIf="password.errors?.required && password.touched && password.dirty"
+      >
+        Password is required</span
+      >
+      <span
+        *ngIf="password.errors?.minlength && password.touched && password.dirty"
+      >
+        password is too short</span
+      >
+    </p>
   </div>
-  <button type="submit" class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition
-                      hover:bg-indigo-500">
+  <button
+    type="submit"
+    class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:bg-gray-600 disabled:text-indigo-400 disabled:cursor-not-allowed"
+    [disabled]="loginForm.invalid"
+  >
     Submit
   </button>
 </form>

@@ -8,6 +8,7 @@ interface IModal {
   ID: string;
   visible: boolean;
 }
+
 @Injectable({
   providedIn: 'root',
 })
