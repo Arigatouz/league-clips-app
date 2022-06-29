@@ -41,7 +41,7 @@ and remember we add the ReactiveFormsModule in the user module
   <button type="submit"
     class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition
                   hover:bg-indigo-500 cursor-pointer disabled:bg-gray-600 disabled:text-indigo-400 disabled:cursor-not-allowed"
-    [disabled]="registerForm.invalid">
+    [disabled]="registerForm.invalid || inSubmission">
     Submit
   </button>
 </form>
