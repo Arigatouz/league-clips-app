@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-
+import { AuthService } from 'src/app/services/auth.service';
+import IUser from 'src/app/models/user.model';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
 })
 export class RegisterFormComponent {
-  constructor(private auth: AngularFireAuth) {
+  constructor(private auth: AuthService) {
     /*
      * if you uncomment this up coming line and get the mouse on the name property
      * you will find that there is type conversion happens to the name from FormControl to AbstractControl
@@ -25,7 +25,7 @@ export class RegisterFormComponent {
   // first every property instantiated with the the new instance of the FormControl
   name = new FormControl('', [Validators.required, Validators.minLength(3)]);
   email = new FormControl('', [Validators.required, Validators.email]);
-  age = new FormControl('', [
+  age = new FormControl<number | null>(null, [
     Validators.required,
     Validators.min(16),
     Validators.max(100),
@@ -41,7 +41,7 @@ export class RegisterFormComponent {
     Validators.maxLength(15),
   ]);
   // second we instantiate  new instance of the FormGroup
-  registerForm = new FormGroup({
+  registerForm: FormGroup = new FormGroup({
     // then we (key value pair) the properties with the this keyword
     name: this.name,
     email: this.email,
@@ -55,18 +55,15 @@ export class RegisterFormComponent {
   alertColor: string = 'blue';
   inSubmission = false;
 
+  // register new user
   register = async (): Promise<void> => {
     this.showAlert = true;
     this.alertMessage = 'Please Wait!, while your account is being created';
     this.alertColor = 'blue';
     this.inSubmission = true;
-    const { email, password } = this.registerForm.value;
     try {
-      const userCred = await this.auth.createUserWithEmailAndPassword(
-        email as string,
-        password as string
-      );
-      console.log(userCred);
+      await this.auth.createUser(this.registerForm.value as IUser);
+      console.log(this.registerForm.value);
     } catch (error: any) {
       this.checkForErrorsWithFireBase(error);
       this.alertColor = 'red';
