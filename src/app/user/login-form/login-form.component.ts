@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login-form',
