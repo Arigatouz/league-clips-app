@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 /*
@@ -13,7 +13,7 @@ import { ModalService } from 'src/app/services/modal.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, OnDestroy {
   @Input() ModalID: string = '';
 
   constructor(public modal: ModalService, public el: ElementRef) {}
@@ -22,6 +22,9 @@ export class ModalComponent implements OnInit {
     // removing the modal to the body OnInit
     // and appending it to the body when initialize to avoid css problems
     document.body.appendChild(this.el.nativeElement);
+  }
+  ngOnDestroy(): void {
+    document.body.removeChild(this.el.nativeElement);
   }
   // closing modal function
   closeModal = (): void => {

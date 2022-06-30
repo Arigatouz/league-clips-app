@@ -4,6 +4,8 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { map, delay } from 'rxjs/operators';
 import IUser from '../models/user.model';
 
 @Injectable({
@@ -11,8 +13,18 @@ import IUser from '../models/user.model';
 })
 export class AuthService {
   private userCollection: AngularFirestoreCollection<IUser>;
+  public isUserAuthenticated$: Observable<boolean>;
+  public isUserAuthenticatedWithDelay$: Observable<boolean>;
   constructor(private auth: AngularFireAuth, private db: AngularFirestore) {
+    // constructor function
     this.userCollection = db.collection('users');
+    this.isUserAuthenticated$ = this.auth.user.pipe(map((user) => !!user));
+    this.isUserAuthenticated$.subscribe({
+      next: (value) => console.log(value),
+    });
+    this.isUserAuthenticatedWithDelay$ = this.isUserAuthenticated$.pipe(
+      delay(1000)
+    );
   }
   // userData is a object of string type
   public async createUser(userData: IUser) {
@@ -26,17 +38,24 @@ export class AuthService {
     );
     const userID = userCred.user?.uid as string;
     console.log(userCred);
+
+    // making sure that user id exist before connecting to the user collection
     if (!userID) {
       throw new Error("user Can't be found");
     }
-    this.userCollection.doc(userID).set({
+    await this.userCollection.doc(userID).set({
       name: userData.name,
       email: userData.email,
       phone: userData.phone,
       age: userData.age,
     });
+
+    // saving display name
     await userCred.user?.updateProfile({
-      displayName: userData.name,
+      displayName: userData.name || 'The Elite Clipper',
     });
+    console.log('Display name is :', userCred.user?.displayName);
   }
+
+  public async logInUser() {}
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import IUser from 'src/app/models/user.model';
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -64,11 +65,12 @@ export class RegisterFormComponent {
     try {
       const formValue = this.registerForm.value as IUser;
       await this.auth.createUser(formValue);
-      console.log(this.registerForm.value);
-    } catch (error: any) {
-      this.checkForErrorsWithFireBase(error);
-      this.alertColor = 'red';
-      this.inSubmission = false;
+      window.location.replace('/');
+    } catch (error: any | unknown) {
+      this.registerCheckForErrorsWithFireBase(error);
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 1200);
       return;
     }
     this.alertMessage = 'Success , your account has been created';
@@ -76,7 +78,9 @@ export class RegisterFormComponent {
   };
 
   // checking for errors with firebase
-  checkForErrorsWithFireBase(error: any): void {
+  registerCheckForErrorsWithFireBase(error: any | unknown): void {
+    this.alertColor = 'red';
+    this.inSubmission = false;
     if (error.code === 'auth/email-already-in-use') {
       this.alertMessage =
         'The email address is already in use by another account';
