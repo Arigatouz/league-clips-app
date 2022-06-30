@@ -16,16 +16,27 @@ export class AuthService {
   }
   // userData is a object of string type
   public async createUser(userData: IUser) {
+    if (!userData.password) {
+      throw new Error('Password not provided!');
+    }
+
     const userCred = await this.auth.createUserWithEmailAndPassword(
       userData.email as string,
       userData.password as string
     );
+    const userID = userCred.user?.uid as string;
     console.log(userCred);
-    this.userCollection.add({
+    if (!userID) {
+      throw new Error("user Can't be found");
+    }
+    this.userCollection.doc(userID).set({
       name: userData.name,
       email: userData.email,
       phone: userData.phone,
       age: userData.age,
+    });
+    await userCred.user?.updateProfile({
+      displayName: userData.name,
     });
   }
 }
