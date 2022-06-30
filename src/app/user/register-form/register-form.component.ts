@@ -62,7 +62,8 @@ export class RegisterFormComponent {
     this.alertColor = 'blue';
     this.inSubmission = true;
     try {
-      await this.auth.createUser(this.registerForm.value as IUser);
+      const formValue = this.registerForm.value as IUser;
+      await this.auth.createUser(formValue);
       console.log(this.registerForm.value);
     } catch (error: any) {
       this.checkForErrorsWithFireBase(error);
