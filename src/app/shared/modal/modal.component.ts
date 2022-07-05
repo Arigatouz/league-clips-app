@@ -23,6 +23,9 @@ export class ModalComponent implements OnInit, OnDestroy {
     // and appending it to the body when initialize to avoid css problems
     document.body.appendChild(this.el.nativeElement);
   }
+  // destroy the modal when the component is destroyed
+  // this is to avoid the modal to be displayed when the component is destroyed
+  // and also the app lost control on the element when we bind it to the body
   ngOnDestroy(): void {
     document.body.removeChild(this.el.nativeElement);
   }

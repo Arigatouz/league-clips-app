@@ -18,6 +18,7 @@ export class AuthService {
   constructor(private auth: AngularFireAuth, private db: AngularFirestore) {
     // constructor function
     this.userCollection = db.collection('users');
+    // to return a boolean value if user is authenticated or not (true or false)
     this.isUserAuthenticated$ = this.auth.user.pipe(map((user) => !!user));
     this.isUserAuthenticated$.subscribe({
       next: (value) => console.log(value),

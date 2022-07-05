@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ModalService } from '../services/modal.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-nav',
@@ -8,7 +9,11 @@ import { ModalService } from '../services/modal.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  constructor(public modal: ModalService, public auth: AuthService) {}
+  constructor(
+    public modal: ModalService,
+    public auth: AuthService,
+    private loAuth: AngularFireAuth
+  ) {}
 
   // opening modal function
   openModal = ($event: Event): void => {
@@ -17,4 +22,9 @@ export class NavComponent implements OnInit {
   };
 
   ngOnInit(): void {}
+
+  logOut = async ($event: Event): Promise<void> => {
+    $event.preventDefault();
+    await this.loAuth.signOut();
+  };
 }
