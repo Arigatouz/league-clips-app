@@ -8,17 +8,17 @@
       <ul class="flex flex-row mt-1">
         <!-- Navigation Links -->
         <li *ngIf="!(auth.isUserAuthenticated$ | async) ; else authenticatedUser">
-          <a class="px-2" href="/" (click)="openModal($event)">Login / Register</a>
+          <a class="px-2" routerLink="/" (click)="openModal($event)">Login / Register</a>
         </li>
         <ng-template #authenticatedUser>
           <li>
-            <a class="px-2" href="#">Manage </a>
+            <a class="px-2" routerLink="#">Manage </a>
           </li>
           <li>
-            <a class="px-2" href="#">Upload</a>
+            <a class="px-2" routerLink="#">Upload</a>
           </li>
           <li>
-            <a class="px-2" href="/about">About</a>
+            <a class="px-2" routerLink="/about" routerLinkActive="text-indego-400">About</a>
           </li>
         </ng-template>
       </ul>
