@@ -10,7 +10,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { VideoModule } from './video/video.module';
-import { getAnalytics } from 'firebase/analytics';
 @NgModule({
   declarations: [AppComponent, NavComponent, HomeComponent, AboutComponent],
   imports: [
